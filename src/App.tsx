@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import About from './components/About';
@@ -8,8 +8,11 @@ import Map from './components/Map';
 import Testimonials from './components/Testimonials';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import DashboardApp from './dashboard/App';
 
 function App() {
+  const [showDashboard, setShowDashboard] = useState(false);
+
   useEffect(() => {
     // Update page title
     document.title = "FAMILY FORAGE - Solutions hydrauliques durables à Madagascar";
@@ -32,6 +35,18 @@ function App() {
     };
   }, []);
 
+  // Check URL for dashboard access (simple demo)
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('dashboard') === 'true') {
+      setShowDashboard(true);
+    }
+  }, []);
+
+  if (showDashboard) {
+    return <DashboardApp />;
+  }
+
   return (
     <div className="font-sans">
       <Header />
@@ -43,6 +58,16 @@ function App() {
       <Testimonials />
       <Contact />
       <Footer />
+      
+      {/* Demo Dashboard Access Button */}
+      <div className="fixed bottom-4 right-4 z-50">
+        <button
+          onClick={() => setShowDashboard(true)}
+          className="bg-[#0D6EFD] hover:bg-blue-600 text-white px-4 py-2 rounded-full shadow-lg transition-colors text-sm"
+        >
+          🔐 Espace Client (Demo)
+        </button>
+      </div>
     </div>
   );
 }
