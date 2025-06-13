@@ -1,14 +1,5 @@
 import React, { useState } from 'react';
-import { 
-  Bell, 
-  CheckCircle, 
-  AlertCircle, 
-  Info, 
-  Calendar,
-  Trash2,
-  MarkAsRead,
-  Filter
-} from 'lucide-react';
+import { Bell, CheckCircle, AlertCircle, Info, Calendar, Trash2, BookMarked as MarkAsRead, Filter } from 'lucide-react';
 
 type NotificationType = 'info' | 'success' | 'warning' | 'update';
 type NotificationFilter = 'all' | 'unread' | 'read';
