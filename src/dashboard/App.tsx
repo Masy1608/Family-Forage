@@ -10,7 +10,11 @@ import Settings from './pages/Settings';
 
 export type PageType = 'dashboard' | 'tracking' | 'quotes' | 'gallery' | 'notifications' | 'settings';
 
-function DashboardApp() {
+interface DashboardAppProps {
+  onLogout?: () => void;
+}
+
+function DashboardApp({ onLogout }: DashboardAppProps) {
   const [currentPage, setCurrentPage] = useState<PageType>('dashboard');
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
@@ -38,6 +42,7 @@ function DashboardApp() {
       <Header 
         onMenuClick={() => setSidebarOpen(!sidebarOpen)}
         sidebarOpen={sidebarOpen}
+        onLogout={onLogout}
       />
       
       <div className="flex">
