@@ -22,16 +22,16 @@ const Header: React.FC = () => {
       <div className="container mx-auto px-4 flex justify-between items-center">
         <div className="flex items-center">
           <Droplet size={32} className="text-[#0D6EFD] mr-2" />
-          <span className="font-bold text-xl text-gray-800">FAMILY FORAGE</span>
+          <span className={`font-bold text-xl ${ isScrolled ? 'text-gray-800' : 'text-white'} `}>FAMILY FORAGE</span>
         </div>
         
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center space-x-6">
-          <Link href="#home">Accueil</Link>
-          <Link href="#about">À propos</Link>
-          <Link href="#services">Services</Link>
-          <Link href="#gallery">Galerie</Link>
-          <Link href="#contact">Contact</Link>
+        <nav className={`hidden md:flex items-center space-x-6 `}>
+          <Link href="#home"><span className={`${ isScrolled ? 'text-gray-800' : 'text-white'}`}>Accueil</span></Link>
+          <Link href="#about"><span className={`${ isScrolled ? 'text-gray-800' : 'text-white'}`}>À propos</span></Link>
+          <Link href="#services"><span className={`${ isScrolled ? 'text-gray-800' : 'text-white'}`}>Services</span></Link>
+          <Link href="#gallery"><span className={`${ isScrolled ? 'text-gray-800' : 'text-white'}`}>Galerie</span></Link>
+          <Link href="#contact"><span className={`${ isScrolled ? 'text-gray-800' : 'text-white'}`}>Contact</span></Link>
           
           <a 
             href="https://wa.me/+261XXXXXXXX" 
