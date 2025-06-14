@@ -9,9 +9,20 @@ import Testimonials from './components/Testimonials';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import DashboardApp from './dashboard/App';
+import AuthWrapper from './components/auth/AuthWrapper';
+
+type AppView = 'main' | 'auth' | 'dashboard';
+
+interface User {
+  email: string;
+  name: string;
+}
 
 function App() {
-  const [showDashboard, setShowDashboard] = useState(false);
+  const [currentView, setCurrentView] = useState<AppView>('main');
+  const [user, setUser] = useState<User | null>(null);
+  const [authLoading, setAuthLoading] = useState(false);
+  const [authError, setAuthError] = useState<string | null>(null);
 
   useEffect(() => {
     // Update page title
@@ -38,38 +49,94 @@ function App() {
   // Check URL for dashboard access (simple demo)
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get('dashboard') === 'true') {
-      setShowDashboard(true);
+    if (urlParams.get('dashboard') === 'true' && user) {
+      setCurrentView('dashboard');
     }
-  }, []);
+  }, [user]);
 
-  if (showDashboard) {
-    return <DashboardApp />;
+  const handleShowAuth = () => {
+    setCurrentView('auth');
+    setAuthError(null);
+  };
+
+  const handleLogin = async (credentials: { email: string; password: string }) => {
+    setAuthLoading(true);
+    setAuthError(null);
+
+    try {
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 1500));
+
+      // Demo credentials check
+      if (credentials.email === 'demo@familyforage.mg' && credentials.password === 'demo123') {
+        const userData = {
+          email: credentials.email,
+          name: 'Jean Rakoto'
+        };
+        setUser(userData);
+        setCurrentView('dashboard');
+      } else {
+        throw new Error('Email ou mot de passe incorrect');
+      }
+    } catch (error) {
+      setAuthError(error instanceof Error ? error.message : 'Une erreur est survenue');
+    } finally {
+      setAuthLoading(false);
+    }
+  };
+
+  const handleLogout = () => {
+    setUser(null);
+    setCurrentView('main');
+    // Clear URL parameters
+    window.history.replaceState({}, document.title, window.location.pathname);
+  };
+
+  const handleBackToMain = () => {
+    setCurrentView('main');
+    setAuthError(null);
+  };
+
+  // Render based on current view
+  switch (currentView) {
+    case 'auth':
+      return (
+        <AuthWrapper
+          onLogin={handleLogin}
+          onBack={handleBackToMain}
+          isLoading={authLoading}
+          error={authError}
+        />
+      );
+    
+    case 'dashboard':
+      return user ? <DashboardApp onLogout={handleLogout} /> : null;
+    
+    default:
+      return (
+        <div className="font-sans">
+          <Header />
+          <Hero />
+          <About />
+          <Services />
+          <Gallery />
+          <Map />
+          <Testimonials />
+          <Contact />
+          <Footer />
+          
+          {/* Client Space Access Button */}
+          <div className="fixed bottom-4 right-4 z-50">
+            <button
+              onClick={handleShowAuth}
+              className="bg-[#0D6EFD] hover:bg-blue-600 text-white px-4 py-2 rounded-full shadow-lg transition-colors text-sm"
+            >
+              🔐 Espace Client
+            </button>
+          </div>
+        </div>
+      );
   }
-
-  return (
-    <div className="font-sans">
-      <Header />
-      <Hero />
-      <About />
-      <Services />
-      <Gallery />
-      <Map />
-      <Testimonials />
-      <Contact />
-      <Footer />
-      
-      {/* Demo Dashboard Access Button */}
-      <div className="fixed bottom-4 right-4 z-50">
-        <button
-          onClick={() => setShowDashboard(true)}
-          className="bg-[#0D6EFD] hover:bg-blue-600 text-white px-4 py-2 rounded-full shadow-lg transition-colors text-sm"
-        >
-          🔐 Espace Client (Demo)
-        </button>
-      </div>
-    </div>
-  );
 }
 
 export default App;
