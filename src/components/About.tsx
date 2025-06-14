@@ -1,6 +1,7 @@
 import React from 'react';
 import { CheckCircle } from 'lucide-react';
 import { AnimatedSection } from './common/AnimatedSection';
+import missionImg from '../assets/image/mission.jpg';
 
 const About: React.FC = () => {
   const highlights = [
@@ -23,7 +24,7 @@ const About: React.FC = () => {
           <AnimatedSection delay={0.2} className="md:w-1/2">
             <div className="relative">
               <img 
-                src="https://images.pexels.com/photos/2576111/pexels-photo-2576111.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" 
+                src={missionImg}
                 alt="Équipe de FAMILY FORAGE travaillant sur un projet" 
                 className="rounded-lg shadow-lg w-full object-cover h-[400px]"
               />
