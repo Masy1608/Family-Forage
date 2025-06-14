@@ -1,5 +1,6 @@
 import React from 'react';
 import { FileText, MessageCircle } from 'lucide-react';
+import heroBg from '../assets/image/hero-bg.jpg';
 
 const Hero: React.FC = () => {
   return (
@@ -7,7 +8,7 @@ const Hero: React.FC = () => {
       id="home" 
       className="relative min-h-screen flex items-center justify-center pt-16 pb-20"
       style={{
-        backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url("https://images.pexels.com/photos/2166711/pexels-photo-2166711.jpeg?auto=compress&cs=tinysrgb&w=1600")',
+        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${heroBg})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
       }}
