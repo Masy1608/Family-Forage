@@ -105,7 +105,7 @@ function App() {
           onLogin={handleLogin}
           onBack={handleBackToMain}
           isLoading={authLoading}
-          error={authError}
+          error={authError ?? undefined}
         />
       );
     
