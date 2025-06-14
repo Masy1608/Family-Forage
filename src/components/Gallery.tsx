@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { AnimatedSection } from './common/AnimatedSection';
+import villageoisImg from '../assets/image/villageois.jpg';
 
 type GalleryCategory = 'all' | 'forage' | 'solaire' | 'temoignages';
 
@@ -29,7 +30,7 @@ const Gallery: React.FC = () => {
     },
     {
       id: 3,
-      src: "https://images.pexels.com/photos/356036/pexels-photo-356036.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      src: villageoisImg,
       alt: "Équipe de FAMILY FORAGE avec des villageois",
       category: ['temoignages']
     },
