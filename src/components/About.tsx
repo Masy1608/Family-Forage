@@ -1,5 +1,4 @@
 import React from 'react';
-import { CheckCircle } from 'lucide-react';
 import { AnimatedSection } from './common/AnimatedSection';
 import missionImg from '../assets/image/mission.jpg';
 
