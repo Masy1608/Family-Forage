@@ -207,9 +207,19 @@ const LoginForm: React.FC<LoginFormProps> = ({
 
         {/* Demo Credentials */}
         <div className="mt-6 p-4 bg-gray-50 rounded-md">
-          <h4 className="text-sm font-medium text-gray-800 mb-2">Compte de démonstration :</h4>
-          <p className="text-xs text-gray-600">Email: demo@familyforage.mg</p>
-          <p className="text-xs text-gray-600">Mot de passe: demo123</p>
+          <h4 className="text-sm font-medium text-gray-800 mb-2">Comptes de démonstration :</h4>
+          <div className="space-y-2">
+            <div>
+              <p className="text-xs text-gray-600 font-medium">Client:</p>
+              <p className="text-xs text-gray-600">Email: demo@familyforage.mg</p>
+              <p className="text-xs text-gray-600">Mot de passe: demo123</p>
+            </div>
+            <div>
+              <p className="text-xs text-gray-600 font-medium">Administrateur:</p>
+              <p className="text-xs text-gray-600">Email: admin@familyforage.mg</p>
+              <p className="text-xs text-gray-600">Mot de passe: admin123</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
