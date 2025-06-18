@@ -9,13 +9,15 @@ import Testimonials from './components/Testimonials';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import DashboardApp from './dashboard/App';
+import AdminApp from './admin/App';
 import AuthWrapper from './components/auth/AuthWrapper';
 
-type AppView = 'main' | 'auth' | 'dashboard';
+type AppView = 'main' | 'auth' | 'dashboard' | 'admin';
 
 interface User {
   email: string;
   name: string;
+  role: 'admin' | 'client' | 'media_contributor' | 'visitor';
 }
 
 function App() {
@@ -50,7 +52,14 @@ function App() {
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.get('dashboard') === 'true' && user) {
-      setCurrentView('dashboard');
+      if (user.role === 'admin') {
+        setCurrentView('admin');
+      } else {
+        setCurrentView('dashboard');
+      }
+    }
+    if (urlParams.get('admin') === 'true' && user?.role === 'admin') {
+      setCurrentView('admin');
     }
   }, [user]);
 
@@ -71,10 +80,19 @@ function App() {
       if (credentials.email === 'demo@familyforage.mg' && credentials.password === 'demo123') {
         const userData = {
           email: credentials.email,
-          name: 'Jean Rakoto'
+          name: 'Jean Rakoto',
+          role: 'client' as const
         };
         setUser(userData);
         setCurrentView('dashboard');
+      } else if (credentials.email === 'admin@familyforage.mg' && credentials.password === 'admin123') {
+        const userData = {
+          email: credentials.email,
+          name: 'Administrateur FAMILY FORAGE',
+          role: 'admin' as const
+        };
+        setUser(userData);
+        setCurrentView('admin');
       } else {
         throw new Error('Email ou mot de passe incorrect');
       }
@@ -108,6 +126,9 @@ function App() {
           error={authError ?? undefined}
         />
       );
+    
+    case 'admin':
+      return user?.role === 'admin' ? <AdminApp onLogout={handleLogout} /> : null;
     
     case 'dashboard':
       return user ? <DashboardApp onLogout={handleLogout} /> : null;
